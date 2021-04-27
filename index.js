@@ -45,9 +45,13 @@ const query = async () => {
     const prompts = await inquirer.prompt(questions);
     let validatedOrNot = prompts['validatedOrNot']
     if(validatedOrNot==='y' || validatedOrNot==='Y'){
-        fetchWallPaper(true);
+        setInterval(function() {
+            fetchWallPaper(true);
+        }, 5000);
     }else if(validatedOrNot==='n' || validatedOrNot==='N'){
-        fetchWallPaper(false);
+        setInterval(function() {
+            fetchWallPaper(false);
+        }, 5000);
     }
 };
   
@@ -55,7 +59,6 @@ query();
 
 const setWallpapper = (filePath) => {
     const shellCommand = "gsettings set org.gnome.desktop.background picture-uri "+ filePath
-    console.log(shellCommand)
     shelljs.exec(shellCommand);
 }
 
