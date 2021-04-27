@@ -7,7 +7,7 @@ import * as os from "os";
 import * as http from "http";
 import * as https from "https";
 import shelljs from "shelljs";
-import * as configstore from "configstore";
+import Configstore from 'configstore';
 
 var dir = os.homedir() + "/mua/gnome-mua-desktop";
 var configFile = dir+"/config.json";
@@ -19,10 +19,11 @@ if (!fs.existsSync(dir)) {
 }
 
 if (!fs.existsSync(configFile)) {
-    fs.writeFile(configFile, "{\"validatedOrNot\":\"y\"}",(ee)=>{
-        console.log(ee)
-    })
+    fs.writeFile(configFile, "{\"validatedOrNot\":\"y\"}")
 }
+
+const packageJson = JSON.parse(fs.readFileSync(configFile, 'utf8'));
+const config = new Configstore(packageJson.name,{validatedOrNot:"y"});
 
 let sourceUrl = "https://raw.githubusercontent.com/maifeeulasad/chrome-mua-tab/data-source/data.json"
 
@@ -51,17 +52,19 @@ const query = async () => {
             if (value === 'y' || value === 'Y' || value === 'n' || value === 'N') {
                 return true;
             }
-            return 'Currently set to ';
+            return 'Currently set to '+config.get("validatedOrNot");
         }
     }, ];
     const prompts = await inquirer.prompt(questions);
     let validatedOrNot = prompts['validatedOrNot']
     if (validatedOrNot === 'y' || validatedOrNot === 'Y') {
         setInterval(function() {
+            config.get("validatedOrNot","y");
             fetchWallPaper(true);
         }, 5000);
     } else if (validatedOrNot === 'n' || validatedOrNot === 'N') {
         setInterval(function() {
+            config.get("validatedOrNot","n");
             fetchWallPaper(false);
         }, 5000);
     }
