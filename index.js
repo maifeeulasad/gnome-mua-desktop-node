@@ -7,6 +7,7 @@ const fs = require('fs');
 const os = require('os');
 const http = require('http');
 const https = require('https');
+const shelljs = require('shelljs');
 
 var dir = os.homedir()+"/mua/gnome-mua-desktop";
 
@@ -53,7 +54,9 @@ const query = async () => {
 query();
 
 const setWallpapper = (filePath) => {
-    
+    const shellCommand = "gsettings set org.gnome.desktop.background picture-uri "+ filePath
+    console.log(shellCommand)
+    shelljs.exec(shellCommand);
 }
 
 const downloadWallpaper = (url) => {
@@ -66,10 +69,12 @@ const downloadWallpaper = (url) => {
     if(url.includes("https")){
         https.get(url, function(response) {
             response.pipe(file);
+            setWallpapper(filePath);
           });
     }else{
         http.get(url, function(response) {
             response.pipe(file);
+            setWallpapper(filePath);
           });
     }
 }
