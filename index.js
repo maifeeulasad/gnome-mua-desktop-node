@@ -17,17 +17,22 @@ if (!fs.existsSync(dir)){
 
 let sourceUrl = "https://raw.githubusercontent.com/maifeeulasad/chrome-mua-tab/data-source/data.json"
 
-clear();
+const welcome = () => {
+    clear();
 
-console.log(
-    chalk
-        .green(
-            figlet
-                .textSync('Gnome MUA Desktop', { horizontalLayout: 'full' })
-        )
-)
+    console.log(
+        chalk
+            .green(
+                figlet
+                    .textSync('Gnome MUA Desktop', { horizontalLayout: 'full' })
+            )
+    )
 
-const questions = [
+    query();
+}
+
+const query = async () => {
+    const questions = [
     {
       name: 'validatedOrNot',
       type: 'input',
@@ -39,9 +44,7 @@ const questions = [
         return false;
       }
     },
-  ];
-
-const query = async () => {
+    ];
     const prompts = await inquirer.prompt(questions);
     let validatedOrNot = prompts['validatedOrNot']
     if(validatedOrNot==='y' || validatedOrNot==='Y'){
@@ -55,7 +58,6 @@ const query = async () => {
     }
 };
   
-query();
 
 const setWallpapper = (filePath) => {
     const shellCommand = "gsettings set org.gnome.desktop.background picture-uri "+ filePath
@@ -106,3 +108,6 @@ const fetchWallPaper = (validatedOrNot) => {
             downloadWallpaper(backgroundImage);
         })
 }
+
+
+welcome()
