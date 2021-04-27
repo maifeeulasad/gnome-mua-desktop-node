@@ -8,14 +8,22 @@ const os = require('os');
 const http = require('http');
 const https = require('https');
 const shelljs = require('shelljs');
+const configstore = require('configstore');
 
 var dir = os.homedir() + "/mua/gnome-mua-desktop";
+var configFile = dir+"/config.json";
 
 if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, {
         recursive: true
     });
 }
+
+/*
+if (fs.existsSync(configFile)) {
+    //fs.writeFile(configFile, "{\"validatedOrNot\":\"y\"}")
+}
+*/
 
 let sourceUrl = "https://raw.githubusercontent.com/maifeeulasad/chrome-mua-tab/data-source/data.json"
 
@@ -44,7 +52,7 @@ const query = async () => {
             if (value === 'y' || value === 'Y' || value === 'n' || value === 'N') {
                 return true;
             }
-            return false;
+            return 'Currently set to ';
         }
     }, ];
     const prompts = await inquirer.prompt(questions);
