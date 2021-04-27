@@ -3,6 +3,14 @@ const clear = require('clear');
 const figlet = require('figlet');
 const inquirer = require('inquirer');
 const axios = require('axios');
+const fs = require('fs');
+const os = require('os')
+
+var dir = os.homedir()+"/mua/gnome-mua-desktop";
+
+if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir,{ recursive: true });
+}
 
 let sourceUrl = "https://raw.githubusercontent.com/maifeeulasad/chrome-mua-tab/data-source/data.json"
 
