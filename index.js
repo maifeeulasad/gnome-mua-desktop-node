@@ -18,11 +18,11 @@ if (!fs.existsSync(dir)) {
     });
 }
 
-/*
-if (fs.existsSync(configFile)) {
-    //fs.writeFile(configFile, "{\"validatedOrNot\":\"y\"}")
+if (!fs.existsSync(configFile)) {
+    fs.writeFile(configFile, "{\"validatedOrNot\":\"y\"}",(ee)=>{
+        console.log(ee)
+    })
 }
-*/
 
 let sourceUrl = "https://raw.githubusercontent.com/maifeeulasad/chrome-mua-tab/data-source/data.json"
 
