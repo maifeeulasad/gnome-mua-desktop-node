@@ -18,5 +18,8 @@
     "http": "^0.0.1-security",
     "inquirer": "^8.0.0",
     "shelljs": "^0.8.4"
+  },
+  "scripts": {
+    "start": "node index.js"
   }
 }
