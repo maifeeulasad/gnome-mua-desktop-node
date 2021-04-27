@@ -10,7 +10,7 @@ import shelljs from "shelljs";
 import Configstore from 'configstore';
 
 var dir = os.homedir() + "/mua/gnome-mua-desktop";
-var configFile = dir+"/config.json";
+var configFile = dir + "/config.json";
 
 if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, {
@@ -23,7 +23,7 @@ if (!fs.existsSync(configFile)) {
 }
 
 const packageJson = JSON.parse(fs.readFileSync(configFile, 'utf8'));
-const config = new Configstore(packageJson.name,{validatedOrNot:"y"});
+const config = new Configstore(packageJson.name, { validatedOrNot: "y" });
 
 let sourceUrl = "https://raw.githubusercontent.com/maifeeulasad/chrome-mua-tab/data-source/data.json"
 
@@ -32,12 +32,12 @@ const welcome = () => {
 
     console.log(
         chalk
-        .green(
-            figlet
-            .textSync('Gnome MUA Desktop', {
-                horizontalLayout: 'full'
-            })
-        )
+            .green(
+                figlet
+                    .textSync('Gnome MUA Desktop', {
+                        horizontalLayout: 'full'
+                    })
+            )
     )
 
     query();
@@ -48,23 +48,23 @@ const query = async () => {
         name: 'validatedOrNot',
         type: 'input',
         message: 'Please enter [y/n] if you want all wallpaper from verified source or not :',
-        validate: function(value) {
+        validate: function (value) {
             if (value === 'y' || value === 'Y' || value === 'n' || value === 'N') {
                 return true;
             }
-            return 'Currently set to '+config.get("validatedOrNot");
+            return 'Currently set to ' + config.get("validatedOrNot");
         }
-    }, ];
+    },];
     const prompts = await inquirer.prompt(questions);
     let validatedOrNot = prompts['validatedOrNot']
     if (validatedOrNot === 'y' || validatedOrNot === 'Y') {
-        setInterval(function() {
-            config.get("validatedOrNot","y");
+        setInterval(function () {
+            config.get("validatedOrNot", "y");
             fetchWallPaper(true);
         }, 5000);
     } else if (validatedOrNot === 'n' || validatedOrNot === 'N') {
-        setInterval(function() {
-            config.get("validatedOrNot","n");
+        setInterval(function () {
+            config.get("validatedOrNot", "n");
             fetchWallPaper(false);
         }, 5000);
     }
@@ -84,12 +84,12 @@ const downloadWallpaper = (url) => {
             ".png");
     const file = fs.createWriteStream(filePath);
     if (url.includes("https")) {
-        https.get(url, function(response) {
+        https.get(url, function (response) {
             response.pipe(file);
             setWallpapper(filePath);
         });
     } else {
-        http.get(url, function(response) {
+        http.get(url, function (response) {
             response.pipe(file);
             setWallpapper(filePath);
         });
@@ -99,8 +99,8 @@ const downloadWallpaper = (url) => {
 const fetchWallPaper = (validatedOrNot) => {
     sourceUrl
         = validatedOrNot ?
-        "https://raw.githubusercontent.com/maifeeulasad/chrome-mua-tab/data-source/data.json" :
-        "https://www.reddit.com/r/wallpaper/top.json"
+            "https://raw.githubusercontent.com/maifeeulasad/chrome-mua-tab/data-source/data.json" :
+            "https://www.reddit.com/r/wallpaper/top.json"
 
     axios
         .get(sourceUrl)
