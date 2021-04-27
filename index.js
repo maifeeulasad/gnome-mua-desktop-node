@@ -4,7 +4,9 @@ const figlet = require('figlet');
 const inquirer = require('inquirer');
 const axios = require('axios');
 const fs = require('fs');
-const os = require('os')
+const os = require('os');
+const http = require('http');
+const https = require('https');
 
 var dir = os.homedir()+"/mua/gnome-mua-desktop";
 
@@ -50,6 +52,28 @@ const query = async () => {
   
 query();
 
+const setWallpapper = (filePath) => {
+    
+}
+
+const downloadWallpaper = (url) => {
+    const filePath = dir
+                    +"/current" 
+                    + (sourceUrl === "https://raw.githubusercontent.com/maifeeulasad/chrome-mua-tab/data-source/data.json"
+                        ? ".jpg"
+                        : ".png");
+    const file = fs.createWriteStream(filePath);
+    if(url.includes("https")){
+        https.get(url, function(response) {
+            response.pipe(file);
+          });
+    }else{
+        http.get(url, function(response) {
+            response.pipe(file);
+          });
+    }
+}
+
 const fetchWallPaper = (validatedOrNot) => {
     sourceUrl 
         = validatedOrNot 
@@ -71,6 +95,6 @@ const fetchWallPaper = (validatedOrNot) => {
 			    let randomImage = responseJson[randomIndex].data;
 			    backgroundImage = randomImage.url;
             }
-            console.log(backgroundImage);
+            downloadWallpaper(backgroundImage);
         })
 }
