@@ -1,0 +1,10 @@
+{
+  "name": "gnome-mua-desktop-node",
+  "version": "1.0.0",
+  "description": "Change your Gnome desktop background from time to time",
+  "main": "index.js",
+  "repository": "https://github.com/maifeeulasad/gnome-mua-desktop-node.git",
+  "author": "maifeeulasad <maifeeulasad@gmail.com>",
+  "license": "MIT",
+  "private": false
+}
