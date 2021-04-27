@@ -7,6 +7,7 @@
   "author": "maifeeulasad <maifeeulasad@gmail.com>",
   "license": "MIT",
   "private": false,
+  "type": "module",
   "dependencies": {
     "axios": "^0.21.1",
     "chalk": "^4.1.1",

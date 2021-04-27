@@ -1,14 +1,13 @@
-const chalk = require('chalk');
-const clear = require('clear');
-const figlet = require('figlet');
-const inquirer = require('inquirer');
-const axios = require('axios');
-const fs = require('fs');
-const os = require('os');
-const http = require('http');
-const https = require('https');
-const shelljs = require('shelljs');
-const configstore = require('configstore');
+import chalk from "chalk";
+import figlet from "figlet";
+import inquirer from "inquirer";
+import axios from "axios";
+import * as fs from "fs";
+import * as os from "os";
+import * as http from "http";
+import * as https from "https";
+import shelljs from "shelljs";
+import * as configstore from "configstore";
 
 var dir = os.homedir() + "/mua/gnome-mua-desktop";
 var configFile = dir+"/config.json";
@@ -28,7 +27,7 @@ if (fs.existsSync(configFile)) {
 let sourceUrl = "https://raw.githubusercontent.com/maifeeulasad/chrome-mua-tab/data-source/data.json"
 
 const welcome = () => {
-    clear();
+    console.clear()
 
     console.log(
         chalk
